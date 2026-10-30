@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SembakoKu — Prototype UI/UX</title>
+<style>
+:root{--green:#168653;--dark:#115c3b;--soft:#e8f6ee;--ink:#172b3a;--muted:#64748b;--bg:#f4f7f5;--border:#e2eae5;--shadow:0 8px 26px rgba(20,65,43,.055)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px "Segoe UI",Arial,sans-serif}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}
+.navbar{height:auto;min-height:82px;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 2px 10px #00000008;display:flex;align-items:center}
+.nav-inner{width:min(100% - 40px,1600px);margin:auto;display:flex;align-items:center;gap:26px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--dark);font-size:22px;font-weight:800;white-space:nowrap;letter-spacing:-.5px}
+.brand-icon{width:44px;height:44px;border-radius:13px;background:var(--soft);display:grid;place-items:center;font-size:14px;font-weight:900}
+.navlinks{display:flex;align-items:center;justify-content:flex-end;gap:3px;flex:1;flex-wrap:wrap}
+.navlinks button{border:0;background:transparent;padding:10px 12px;border-radius:9px;color:#344054;font-weight:600;font-size:15px}
+.navlinks button:hover,.navlinks button.active{color:var(--dark);background:var(--soft)}
+.user-menu{white-space:nowrap;font-weight:600;color:#344054;padding:9px 4px}
+.menu-toggle{display:none;border:1px solid var(--border);background:white;border-radius:9px;padding:8px 12px;font-size:20px}
+main{width:min(100% - 32px,1600px);margin:0 auto;padding:26px 0 40px;min-height:calc(100vh - 145px)}
+.hero{background:linear-gradient(135deg,#14532d,#16a34a);border-radius:20px;color:white;padding:52px 52px;margin:44px 0 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.hero h1{font-size:42px;line-height:1.15;margin:0 0 10px;font-weight:800;letter-spacing:-1.2px}.hero p{font-size:18px;margin:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:11px;padding:11px 16px;font-weight:650;cursor:pointer;transition:.15s}
+.btn:hover{filter:brightness(.97);transform:translateY(-1px)}.btn-light{background:white;color:var(--green)}.btn-success{background:var(--green);color:white}.btn-outline{background:white;color:var(--green);border-color:#9acbb0}.btn-muted{background:#fff;color:#475569;border-color:#cbd5e1}
+h2{font-size:27px;margin:0 0 18px;letter-spacing:-.5px}h3{font-size:20px;margin:0 0 7px}.muted{color:var(--muted)}.small{font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-bottom:26px}
+.card{background:#fff;border:1px solid #edf1ee;border-radius:20px;box-shadow:var(--shadow);padding:26px;min-width:0}
+.stat{min-height:166px}.stat-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.stat-label{color:var(--muted);font-size:16px}.stat-icon{width:60px;height:60px;border-radius:17px;display:grid;place-items:center;font-size:23px;flex:none}.green{background:#d1e9df;color:var(--green)}.blue{background:#d5e5ff;color:#1264e8}.red{background:#f9d9dc;color:#e33245}
+.stat-value{font-size:34px;font-weight:800;margin:8px 0 7px;line-height:1.2}.stat-help{font-size:14px;color:var(--muted)}
+.cards-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-bottom:26px}.mini-stat{min-height:142px}.mini-stat .stat-value{font-size:30px}
+.panel{background:white;border:1px solid #edf1ee;border-radius:20px;box-shadow:var(--shadow);padding:26px;margin-bottom:26px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.panel-head h3{margin:0}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:600px}thead th{background:#d1e9df;color:#234b38;font-size:14px;text-align:left;padding:13px 12px;white-space:nowrap}tbody td{padding:13px 12px;border-bottom:1px solid var(--border);font-size:15px}tbody tr:hover{background:#f8fbf9}.right{text-align:right}.rank{display:inline-grid;place-items:center;background:#f1f5f9;border-radius:9px;width:27px;height:27px;font-weight:800;font-size:13px}.rank.first{background:#ffc928;color:#654600}
+.quicklinks{display:flex;flex-wrap:wrap;gap:10px}.quicklinks .btn{font-weight:500}
+.section-tag{color:var(--green);font-weight:700;letter-spacing:1px;font-size:12px;margin-bottom:5px}
+.page-title{margin:8px 0 22px}.page-title h1{font-size:32px;margin:0 0 5px}.page-title p{margin:0;color:var(--muted)}
+.toolbar{display:flex;gap:12px;align-items:end;flex-wrap:wrap;margin-bottom:18px}.field{display:flex;flex-direction:column;gap:6px;min-width:180px;flex:1}.field label{font-weight:650;font-size:14px}.field input,.field select{height:44px;border:1px solid #d8e2dc;border-radius:10px;padding:9px 12px;background:white}
+.footer{border-top:1px solid var(--border);background:white;color:var(--muted);padding:18px max(20px,calc((100% - 1560px)/2));font-size:14px;display:flex;justify-content:space-between;gap:12px}
+@media(max-width:1150px){.nav-inner{gap:14px}.navlinks button{font-size:13px;padding:9px 8px}.brand{font-size:19px}.hero{margin-top:25px}.hero h1{font-size:34px}}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.nav-inner{flex-wrap:wrap;padding:13px 0}.menu-toggle{display:block;margin-left:auto}.navlinks{display:none;flex-basis:100%;justify-content:flex-start;align-items:stretch;flex-direction:column}.navlinks.open{display:flex}.navlinks button{text-align:left}.user-menu{display:none}.cards-three{grid-template-columns:1fr}}
+@media(max-width:600px){main{width:calc(100% - 24px);padding-top:12px}.hero{padding:27px 22px;flex-direction:column;align-items:flex-start;border-radius:16px;margin:12px 0 22px}.hero h1{font-size:27px}.hero p{font-size:15px}.hero .btn{width:100%}.cards{grid-template-columns:1fr;gap:12px}.card,.panel{padding:19px;border-radius:15px}.stat{min-height:135px}.stat-value{font-size:29px}.cards-three{gap:12px}h2{font-size:23px}.page-title h1{font-size:26px}.footer{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="navbar"><div class="nav-inner">
+<a class="brand" href="#" onclick="go('dashboard');return false"><span class="brand-icon">SK</span><span>SembakoKu</span></a>
+<button class="menu-toggle" onclick="toggleNav()" aria-label="Buka menu">☰</button>
+<nav class="navlinks" id="navlinks">
+<button data-page="dashboard" onclick="go('dashboard')">Dashboard</button>
+<button data-page="barang" onclick="go('barang')">Data Barang</button>
+<button data-page="kasir" onclick="go('kasir')">Kasir / Penjualan</button>
+<button data-page="pembelian" onclick="go('pembelian')">Pembelian</button>
+<button data-page="stok" onclick="go('stok')">Kartu Stok</button>
+<button data-page="pengeluaran" onclick="go('pengeluaran')">Pengeluaran</button>
+<button data-page="keuangan" onclick="go('keuangan')">Keuangan</button>
+<button data-page="riwayat" onclick="go('riwayat')">Riwayat</button>
+<button data-page="laporan" onclick="go('laporan')">Laporan</button>
+<button data-page="aktivitas" onclick="go('aktivitas')">Log Aktivitas</button>
+<button data-page="pembayaran" onclick="go('pembayaran')">Pembayaran</button>
+</nav><div class="user-menu">admin⌄</div>
+</div></header>
+<main id="app"></main>
+<footer class="footer"><span>© 2026 SembakoKu. Sistem Informasi Toko Sembako.</span><span>Informasi Privasi</span></footer>
+<script>
+const money=n=>'Rp '+Number(n).toLocaleString('id-ID');
+let page='dashboard',cart=[];
+const products=[
+ ['BRG022','Air Mineral 600 ml','Minuman','Botol',65,3000],
+ ['BRG005','Minyak Goreng 1 L','Minyak','Pouch',31,17500],
+ ['BRG024','Keripik Kentang 68 g','Makanan','Bungkus',20,8500],
+ ['BRG002','Beras Medium 1 kg','Beras','Kg',15,14500],
+ ['BRG004','Gula Merah 250 g','Gula','Pack',15,9000],
+ ['BRG003','Gula Pasir 1 Kg','Gula','Kg',22,16500],
+ ['BRG008','Telur Ayam 1 Kg','Telur','Kg',18,29000]
+];
+function stat(label,val,help,icon,color){return `<div class="card stat"><div class="stat-top"><span class="stat-label">${label}</span><span class="stat-icon ${color}">${icon}</span></div><div class="stat-value">${val}</div><div class="stat-help">${help}</div></div>`}
+function table(heads,rows){return `<div class="table-wrap"><table><thead><tr>${heads.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`}
+function dashboard(){return `
+<section class="hero"><div><h1>Selamat Datang di SembakoKu</h1><p>Sistem Informasi Persediaan dan Penjualan Toko Sembako</p></div><button class="btn btn-light" onclick="go('kasir')">🛒 Transaksi Baru</button></section>
+<h2>Ringkasan Toko</h2>
+<div class="cards">
+${stat('Total Jenis Barang','32','Barang terdaftar di toko','▤','green')}
+${stat('Transaksi Hari Ini','1','Transaksi penjualan','▣','blue')}
+${stat('Omzet Hari Ini',money(79500),'Total penjualan hari ini','↗','green')}
+${stat('Stok Menipis','0','Barang mencapai batas minimum','⚠','red')}
+</div>
+<div class="cards-three">
+<div class="card mini-stat"><div class="stat-label">Laba Kotor Tercatat Hari Ini</div><div class="stat-value" style="color:var(--green)">${money(5200)}</div><div class="stat-help">Dihitung dari HPP yang tersimpan. Bukan laba bersih.</div></div>
+<div class="card mini-stat"><div class="stat-label">Pengeluaran Hari Ini</div><div class="stat-value" style="color:#e33245">${money(0)}</div><div class="stat-help">Biaya operasional yang dicatat hari ini.</div></div>
+<div class="card mini-stat"><div class="stat-label">Estimasi Setelah Pengeluaran</div><div class="stat-value">${money(5200)}</div><div class="stat-help">Estimasi sementara, bukan laporan laba bersih final.</div></div>
+</div>
+<section class="panel"><div class="panel-head"><div><h3>Barang Terlaris</h3><div class="muted">Peringkat barang berdasarkan jumlah yang terjual.</div></div><button class="btn btn-outline" onclick="go('riwayat')">Lihat Riwayat Penjualan</button></div>
+${table(['Peringkat','Kode Barang','Nama Barang','Total Terjual'],products.slice(0,5).map((p,i)=>`<tr><td><span class="rank ${i===0?'first':''}">${i+1}</span></td><td><b>${p[0]}</b></td><td>${p[1]}</td><td class="right"><b>${p[4]}</b></td></tr>`))}
+</section>
+<section class="panel"><div class="panel-head"><div><h3>Menu Utama</h3><div class="muted">Pilih fitur untuk mengelola toko sembako.</div></div></div><div class="quicklinks">
+<button class="btn btn-success" onclick="go('barang')">Data Barang</button><button class="btn btn-outline" onclick="go('stok')">Persediaan</button><button class="btn btn-outline" style="color:#1264e8;border-color:#8db6ff" onclick="go('kasir')">Penjualan</button><button class="btn btn-outline" onclick="go('pembelian')">Pembelian Barang</button><button class="btn btn-muted" onclick="go('stok')">Kartu Stok</button><button class="btn btn-outline" style="color:#bd7a00;border-color:#e8c77e" onclick="go('pengeluaran')">Pengeluaran</button><button class="btn btn-outline" style="color:#1264e8;border-color:#8db6ff" onclick="go('keuangan')">Ringkasan Keuangan</button><button class="btn btn-muted" onclick="go('riwayat')">Riwayat Penjualan</button><button class="btn btn-outline" style="color:#dc3545;border-color:#f1a1a8" onclick="go('laporan')">Laporan Penjualan</button>
+</div></section>
+<p class="muted small" style="text-align:center">Prototype tampilan mengikuti struktur aplikasi lokal. Angka pada halaman ini merupakan data contoh dari screenshot, bukan data live database.</p>`}
+function pageHead(tag,title,desc,button=''){return `<div class="page-title"><div class="section-tag">${tag}</div><h1>${title}</h1><p>${desc}</p>${button?`<div style="margin-top:15px">${button}</div>`:''}</div>`}
+function barang(){return `${pageHead('DATA MASTER','Data Barang','Kelola daftar barang, kategori, satuan, stok, dan harga jual.','<button class="btn btn-success">＋ Tambah Barang</button>')}<section class="panel"><div class="toolbar"><div class="field"><label>Cari barang</label><input id="q" placeholder="Kode atau nama barang..." oninput="filterTable()"></div><div class="field"><label>Kategori</label><select><option>Semua kategori</option><option>Beras</option><option>Minyak</option><option>Minuman</option></select></div></div><div id="prodtable">${productTable(products)}</div></section>`}
+function productTable(arr){return table(['Kode','Nama Barang','Kategori','Satuan','Stok','Harga Jual','Aksi'],arr.map(p=>`<tr><td><b>${p[0]}</b></td><td>${p[1]}</td><td>${p[2]}</td><td>${p[3]}</td><td>${p[4]}</td><td>${money(p[5])}</td><td><button class="btn btn-outline">Edit</button></td></tr>`))}
+function filterTable(){let q=document.getElementById('q').value.toLowerCase();document.getElementById('prodtable').innerHTML=productTable(products.filter(p=>p.join(' ').toLowerCase().includes(q)))}
+function kasir(){return `${pageHead('PENJUALAN','Transaksi Penjualan','Pilih beberapa barang untuk satu transaksi. Stok akan diperbarui setelah transaksi berhasil.')}<section class="panel"><div class="toolbar"><div class="field"><label>Nama pelanggan (opsional)</label><input placeholder="Kosongkan jika Pelanggan Umum"></div><div class="field"><label>Karyawan / Kasir</label><select><option>-- Pilih Karyawan --</option><option>Kasir 01</option></select></div><div class="field"><label>Metode pembayaran</label><select><option>Tunai</option><option>Transfer</option></select></div></div><div class="panel-head"><h3>Barang yang dibeli</h3><button class="btn btn-outline" onclick="addRow()">＋ Tambah Barang</button></div><div id="saleRows">${saleRow()}</div><div class="panel-head" style="margin-top:18px"><b>Total transaksi</b><h3 id="total">${money(0)}</h3></div><button class="btn btn-success" onclick="alert('Prototype: transaksi tidak disimpan ke database.')">Simpan Penjualan</button> <button class="btn btn-outline" onclick="go('riwayat')">Riwayat Penjualan</button></section>`}
+function saleRow(){return `<div class="toolbar sale-row"><div class="field"><label>Barang</label><select onchange="calcTotal()"><option value="0">-- Pilih barang --</option>${products.map((p,i)=>`<option value="${p[5]}">${p[1]} — ${money(p[5])}</option>`).join('')}</select></div><div class="field" style="max-width:130px"><label>Jumlah</label><input type="number" min="1" value="1" oninput="calcTotal()"></div><div class="field"><label>Harga satuan</label><input value="Rp 0" disabled></div><button class="btn btn-muted" onclick="this.parentElement.remove();calcTotal()">Hapus</button></div>`}
+function addRow(){document.getElementById('saleRows').insertAdjacentHTML('beforeend',saleRow())}
+function calcTotal(){let sum=0;document.querySelectorAll('.sale-row').forEach(r=>{let s=r.querySelector('select'),q=r.querySelector('input[type=number]');sum+=(Number(s.value)||0)*(Number(q.value)||0)});document.getElementById('total').textContent=money(sum)}
+function pembelian(){return `${pageHead('PERSEDIAAN','Pembelian barang','Catat pembelian barang dari pemasok untuk menambah persediaan.','<button class="btn btn-success">＋ Catat Pembelian</button>')}<section class="panel">${table(['No. Pembelian','Tanggal','Pemasok','Jenis Barang','Total','Aksi'],[['PB-0001','30/10/2026','CV Sumber Pangan','5 jenis',money(2350000),'Detail'],['PB-0002','28/10/2026','UD Makmur Jaya','3 jenis',money(1750000),'Detail']].map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`))}</section>`}
+function stok(){return `${pageHead('PERSEDIAAN','Kartu stok','Riwayat pergerakan stok yang tercatat oleh modul pembelian dan penjualan.')}<section class="panel"><div class="toolbar"><div class="field"><label>Cari barang/referensi</label><input placeholder="Masukkan kode atau nama barang"></div><div class="field"><label>Dari tanggal</label><input type="date"></div><div class="field"><label>Sampai tanggal</label><input type="date"></div><button class="btn btn-success">Terapkan</button></div>${table(['Tanggal','Barang','Jenis','Referensi','Masuk','Keluar','Stok Akhir'],[['30/10/2026','Air Mineral 600 ml','Penjualan','PJ-0001','0','2','65'],['29/10/2026','Minyak Goreng 1 L','Pembelian','PB-0002','12','0','31']].map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`))}</section>`}
+function pengeluaran(){return `${pageHead('KEUANGAN','Pengeluaran operasional','Catat dan pantau biaya operasional toko.','<button class="btn btn-success">＋ Tambah Pengeluaran</button>')}<section class="panel"><div class="toolbar"><div class="field"><label>Dari tanggal</label><input type="date"></div><div class="field"><label>Sampai tanggal</label><input type="date"></div><button class="btn btn-success">Filter</button></div>${table(['Tanggal','Kategori','Keterangan','Dicatat Oleh','Jumlah'],[['30/10/2026','Operasional','Biaya toko','Admin',money(0)]].map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`))}</section>`}
+function keuangan(){return `${pageHead('KEUANGAN','Ringkasan keuangan','Omzet, HPP tersimpan, laba kotor yang dapat dihitung, dan biaya operasional.')}<section class="panel"><div class="toolbar"><div class="field"><label>Dari tanggal</label><input type="date"></div><div class="field"><label>Sampai tanggal</label><input type="date"></div><button class="btn btn-success">Tampilkan</button></div><div class="cards-three">${stat('Omzet Penjualan',money(79500),'Penjualan pada periode','↗','green')}${stat('HPP Tersimpan',money(74300),'Harga pokok yang tercatat','▤','blue')}${stat('Laba Kotor',money(5200),'Bukan laba bersih','◈','green')}</div><p class="muted small">Laba kotor dihitung dari detail penjualan yang memiliki data HPP tersimpan. Pengeluaran operasional ditampilkan terpisah.</p></section>`}
+function riwayat(){return `${pageHead('PENJUALAN','Riwayat penjualan','Lihat transaksi penjualan yang sudah tersimpan.')}<section class="panel"><div class="toolbar"><div class="field"><label>Cari transaksi</label><input placeholder="Nomor transaksi / pelanggan"></div><div class="field"><label>Tanggal</label><input type="date"></div><button class="btn btn-success">Cari</button></div>${table(['No. Transaksi','Tanggal','Pelanggan','Kasir','Metode Bayar','Total','Aksi'],[['PJ-0001','30/10/2026','Pelanggan Umum','Kasir 01','Tunai',money(79500),'Detail']].map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`))}</section>`}
+function laporan(){return `${pageHead('LAPORAN','Laporan Penjualan','Rekap transaksi, omzet harian, dan barang terlaris.')}<section class="panel"><div class="toolbar"><div class="field"><label>Tanggal mulai</label><input type="date"></div><div class="field"><label>Tanggal selesai</label><input type="date"></div><button class="btn btn-success">Tampilkan Laporan</button><button class="btn btn-outline">Ekspor Excel</button></div><div class="cards-three">${stat('Total Transaksi','1','Periode terpilih','▣','blue')}${stat('Total Omzet',money(79500),'Penjualan kotor','↗','green')}${stat('Laba Kotor',money(5200),'Berdasarkan HPP tersimpan','◈','green')}</div><h3>Penjualan Harian</h3>${table(['Tanggal','Jumlah Transaksi','Total Omzet'],[['30/10/2026','1',money(79500)]].map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`))}</section>`}
+function aktivitas(){return `${pageHead('ADMINISTRASI','Log Aktivitas','Riwayat aktivitas pengguna pada aplikasi.')}<section class="panel">${table(['Waktu','Pengguna','Aktivitas','Modul'],[['30/10/2026 10:42','admin','Mencatat transaksi penjualan','Penjualan'],['30/10/2026 09:30','admin','Memperbarui data barang','Data Barang']].map(r=>`<tr>${r.map(x=>`<td>${x}</td>`).join('')}</tr>`))}</section>`}
+function pembayaran(){return `${pageHead('PENGATURAN','Pengaturan pembayaran','Atur informasi rekening untuk pembayaran transfer.')}<section class="panel" style="max-width:720px"><div class="field"><label>Metode pembayaran</label><select><option>Transfer</option><option>Tunai</option></select></div><div class="field" style="margin-top:15px"><label>Nama pemilik rekening</label><input value="Nama Pemilik Rekening"></div><div class="field" style="margin-top:15px"><label>Nomor rekening</label><input placeholder="Masukkan nomor rekening"></div><button class="btn btn-success" style="margin-top:18px" onclick="alert('Prototype pengaturan pembayaran')">Simpan Pengaturan</button></section>`}
+const pages={dashboard,barang,kasir,pembelian,stok,pengeluaran,keuangan,riwayat,laporan,aktivitas,pembayaran};
+function go(p){page=p;document.getElementById('app').innerHTML=pages[p]();document.querySelectorAll('.navlinks button').forEach(b=>b.classList.toggle('active',b.dataset.page===p));document.getElementById('navlinks').classList.remove('open');window.scrollTo(0,0)}
+function toggleNav(){document.getElementById('navlinks').classList.toggle('open')}
+go('dashboard');
+</script>
+</body></html>
